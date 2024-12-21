@@ -7,7 +7,7 @@ This Dart program defines a `BankAccount` class to manage basic banking operatio
 1. Ensure you have Dart installed on your machine.
 2. Clone the repository.
 3. Navigate to the project directory.
-4. Run the program using the command: `BankAccount.dart`
+4. Run the program using the command: `dart BankAccount.dart`
 
 ## Code Explanation
 
