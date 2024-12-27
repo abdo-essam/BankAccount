@@ -1,60 +1,74 @@
 
 class BankAccount {
 
-  String accountID;
-  double balance;
+  final String accountId; // Use final for account ID as it shouldn't change
+  double balance = 0.0;
 
-  // Constructor for initializing accountID and balance
-  BankAccount(this.accountID, this.balance);
+  BankAccount(this.accountId);
 
-  // Named constructor for initializing accountID with balance set to 0
-  BankAccount.withZeroBalance(this.accountID) : balance = 0.0;
+  // Named constructor
+  BankAccount.zeroBalance(this.accountId) : balance = 0.0;
 
-  // Method to withdraw money
+
   void withdraw(double amount) {
     if (amount <= 0) {
-      print('Error: Withdrawal amount must be positive.');
-    } else if (amount > balance) {
-      print('Error: Insufficient balance.');
+      print("Invalid withdrawal amount. Please enter a positive value.");
+      return;
+    }
+
+    if (amount > balance) {
+      print("Insufficient funds. Current balance: \$$balance");
     } else {
       balance -= amount;
-      print('Withdrawal successful. New balance: \$${balance.toStringAsFixed(2)}');
+      print("\$$amount withdrawn successfully. New balance: \$$balance");
     }
   }
 
-  // Method to deposit money
   void deposit(double amount) {
     if (amount <= 0) {
-      print('Error: Deposit amount must be positive.');
-    } else {
-      balance += amount;
-      print('Deposit successful. New balance: \$${balance.toStringAsFixed(2)}');
+      print("Invalid deposit amount. Please enter a positive value.");
+      return;
     }
+    balance += amount;
+    print("\$$amount deposited successfully. New balance: \$$balance");
   }
 
-  // Method to display account information
+  // Display account information
   void displayAccountInfo() {
-    print('Account ID: $accountID');
-    print('Current Balance: \$${balance.toStringAsFixed(2)}');
+    print("Account ID: $accountId");
+    print("Current Balance: \$$balance");
   }
 }
 
 void main() {
 
-  BankAccount account1 = BankAccount('123456', 100.0);
+  print('Creating account with balance:');
+  var account1 = BankAccount('A1');
   account1.displayAccountInfo();
 
-  // Create a BankAccount instance using the named constructor
-  BankAccount account2 = BankAccount.withZeroBalance('789012');
+
+  print('Creating account with zero balance:');
+  var account2 = BankAccount.zeroBalance('A2');
   account2.displayAccountInfo();
 
 
-  account1.deposit(50.0);
-  account1.withdraw(30.0);
-  account1.withdraw(150.0); // Insufficient balance scenario
-  account1.deposit(-20.0);  // Invalid input scenario
-
-
+  print('\nTesting Account A1 :');
+  account1.deposit(500);
   account1.displayAccountInfo();
+
+  account1.withdraw(200);
+  account1.displayAccountInfo();
+
+  account1.withdraw(-121);
+  account1.withdraw(6000);
+  account1.deposit(-58);
+
+
+
+  print('\nTesting Account A2 :');
+  account2.deposit(7000);
+  account2.displayAccountInfo();
+
+  account2.withdraw(6000);
   account2.displayAccountInfo();
 }
